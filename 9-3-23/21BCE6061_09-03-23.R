@@ -1,0 +1,42 @@
+z.onemean =function(xbar,mu,sd,n){
+  z_one =(xbar - mu) /(sd/sqrt(n))
+  return(z_one)
+}
+z1<-z.onemean(160,165,10,100)
+print(z1)
+z_cri=qnorm(1-(0.01/2),0,1)
+print(z_cri)
+#conclusion :abs(z1)>abs(z_cri),reject H_0
+
+z.twotest = function(x1bar,x2bar,mu1,mu2,sd1,sd2,n1,n2){
+  z_2=((x1bar-x2bar)-(mu1-mu2))/
+    (sqrt((sd1^2/n1)+(sd2^2/n2)))
+  return(z_2)
+}
+
+z2<-z.twotest(170,172,0,0,6.4,6.3,6400,1600)
+print(z2)
+#t-test
+#a random sample of 10 boys had the following i.q's :
+#70,120,110,101,88,83,95,98,107,100.
+
+data<-c(70,120,110,101,88,83,95,98,107,100)
+t.test(data,alternative ="two.sided",mu=100,conf.level=0.95)
+qt(1-0.025,9)
+
+#two sample t-test
+#in a certain experiment to compare two types of pig foods a and b . the following 
+#results of increase in weights were observed in pigs:
+#food a: 49 53 51 52 47 50 52 53
+#food b: 52 55 52 53 50 54 54 53
+#assuming that the two samples of pigs are independent,can we conplude that food b  
+# is better than food a
+#case-1
+Fa<-c(49,53,51,52,47,50,52,53)
+Fb<-c(52,55,52,53,50,54,54,53)
+t.test(Fa,Fb,var.equal=TRUE,alternative="less",conf.level=0.95)
+qt(1-0.05,14)
+#case-2
+t.test(Fa,Fb,var.equal=TRUE,alternative="less",conf.level = 0.95)
+qt(1-0.05,7)
+#conclusion: reject H0,
